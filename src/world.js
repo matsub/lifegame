@@ -13,10 +13,13 @@ class World {
       blackLine.fill(0, offset, offset + 3);
     }
 
+    const imageData = ctx.createImageData(canvas.width, canvas.height);
+
     this._cells = [];
     this.canvas = canvas;
     this.ctx = ctx;
     this._blackLine = blackLine;
+    this._imageData = imageData;
   }
 
   _fill(buff, x, y) {
@@ -36,16 +39,13 @@ class World {
   }
 
   draw() {
-    const imageData = this.ctx.createImageData(
-      this.canvas.width,
-      this.canvas.height
-    );
+    this._imageData.data.fill(255);
 
     for (const cell of this._cells) {
-      this._fill(imageData.data, cell.x, cell.y);
+      this._fill(this._imageData.data, cell.x, cell.y);
     }
 
-    this.ctx.putImageData(imageData, 0, 0);
+    this.ctx.putImageData(this._imageData, 0, 0);
   }
 
   process() {

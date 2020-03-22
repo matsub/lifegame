@@ -13,7 +13,6 @@ function drawGrid(world) {
   }
 
   world.ctx.strokeStyle = "#ddd";
-  world.ctx.stroke();
 }
 
 function main() {
@@ -72,12 +71,13 @@ function main() {
     // -- 20fps
 
     world.draw();
-    drawGrid(world);
+    world.ctx.stroke();
 
     world.process();
     lastFrameTime = elapsedTime;
   };
 
+  drawGrid(world);
   requestAnimationFrame(draw);
 }
 
